@@ -15,8 +15,26 @@ var ocugineUtils = function(OcugineGF) {
     "use strict";
 
     // Ocugine Utils Module Class
-    OcugineGF.Cordova = function(GF) {
-      /* TODO: Ocugine Utils Class */
+    OcugineGF.Utils = function(GF) {
+      // Create Object for Utils
+      GF.Utils = {};
+
+      // Get OS Information
+      GF.Utils.getOS = function(){
+        return window.navigator.oscpu; // Return OS
+      };
+
+      // Get User Language
+      GF.Utils.getLanguage = function(){
+        return window.navigator.language;
+      };
+
+      // Vibrate or return false if can't vibrate
+      GF.Utils.vibrate = function(pattern){
+        return window.navigator.vibrate(pattern);
+      };
+
+      /* TODO: Add Color and Maths utils */
     };
 };
 
