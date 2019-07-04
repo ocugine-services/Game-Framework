@@ -35,7 +35,7 @@ var ocugineWeb = function(OcugineGF) {
       };
 
       // Download File
-      GF.Web.downloadFile = function(){
+      GF.Web.downloadFile = function(url){
 
       };
 
@@ -88,28 +88,6 @@ var ocugineWeb = function(OcugineGF) {
       // Close Browser Window
       GF.Web.closeWindow = function(){
         window.close(); // Close Current Window
-      };
-
-      // Set Window Timeout
-      GF.Web.setTimeout = function(method, timeout){
-        if(!GF._isFunction(method)) throw "Failed to set timeout. The first argument is not a function.";
-        return setTimeout(method, timeout); // Return Interval Object
-      };
-
-      // Remove Window timeout
-      GF.Web.removeTimeout = function(tm){
-        cleatTimeout(tm);
-      };
-
-      // Set Window Interval
-      GF.Web.setInterval = function(method, interval){
-        if(!GF._isFunction(method)) throw "Failed to set interval. The first argument is not a function.";
-        return setInterval(method, interval); // Return Interval Object
-      };
-
-      // Remove interval
-      GF.Web.removeInterval = function(interval){
-        clearInterval(interval); // Clear Interval
       };
 
       // Get Local Storage

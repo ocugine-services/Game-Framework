@@ -15,3 +15,5 @@
 var Game = OcugineGF().include("Sprites,Scenes,Input,2D,Touch,UI,Web,Crypto").setup({
   maximize: true
 }).controls().touch();
+
+//Game.Web.showAlert(Game.Crypto.SHA256("asdasd"));
