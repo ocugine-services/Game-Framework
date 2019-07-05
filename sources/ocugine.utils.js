@@ -56,6 +56,15 @@ var ocugineUtils = function(OcugineGF) {
         clearInterval(interval); // Clear Interval
       };
 
+      // Serialize Data
+      GF._serializeData = function(obj){
+		    if(GF._isUndefined(obj) || !GF._isObject(obj)) throw "Failed to serialize object to URL parts. Please, check documentation.";
+    		var str = Object.keys(obj).map(function(prop) {
+    		  return [prop, obj[prop]].map(encodeURIComponent).join("=");
+    		}).join("&");
+		    return str;
+      };
+
       /* TODO: Add Color and Maths utils */
     };
 };

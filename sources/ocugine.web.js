@@ -25,13 +25,61 @@ var ocugineWeb = function(OcugineGF) {
       };
 
       // Send Async GET Request
-      GF.Web.sendGetRequest = function(url, params, callback, error){
+      GF.Web.sendGetRequest = function(url, callback, error){
+        // Check Params
+        if(!GF._isString(url)) throw "Failed to send GET request. URL must be a string";
+        var done = function(){}; var fail = function(){}; // Callbacks
+        if(!GF._isUndefined(callback) && GF._isFunction(callback)) done = callback;
+        if(!GF._isUndefined(error) && GF._isFunction(error)) fail = error;
 
+        // Generate Request
+        var xhr = new XMLHttpRequest(); // HTTP Request
+        xhr.open("GET", url, true); // Open XHR
+        xhr.onload = function (e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              done(xhr.responseText);
+            } else {
+              fail(xhr.statusText); // Return Error
+            }
+          }
+        };
+        xhr.onerror = function (e) {
+          fail(xhr.statusText); // Return Error
+        };
+        xhr.send(null);
       };
 
       // Send Async POST Request
       GF.Web.sendPostRequest = function(url, params, callback, error){
+        // Params
+        if(GF._isUndefined(url) || !GF._isString(url)) throw "Failed to send POST request. URL must be a string.";
+        var _data = (GF._isUndefined(params) || !GF._isObject(params))?{}:params; // Set Data
+        var _success = (GF._isUndefined(callback) || !GF._isFunction(callback))?function(){}:callback; // Success Callback
+		    var _error = (GF._isUndefined(error) || !GF._isFunction(error))?function(){}:error; // Error Callback
 
+        // Generate Request
+        var xhr = new XMLHttpRequest(); // Create XML HTTP Request
+		    xhr.open("POST", url, true); // Open Connection
+		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // Set Header
+
+        // XHR Done
+        xhr.onreadystatechange = function() {	// Then XHR Status Changed
+        	if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) { // Complete
+            _success(xhr.responseText); // Send Success Callback
+        	}else{
+            _error(xhr.statusText); // Return Error
+          }
+        }
+
+        // XHR Error
+        xhr.onerror  = function(){ // Then XHR gets error
+          _error(xhr.statusText); // Return Error
+        }
+
+
+        // Send Request
+        xhr.send(GF._serializeData(_data));
       };
 
       // Download File
